@@ -26,7 +26,7 @@ export default function Contact() {
     setSubmitted(true);
 
     
-const res = await fetch(`https://nexepwebsite.onrender.com//send-email`, {
+const res = await fetch(`https://nexepwebsite.onrender.com/send-email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
