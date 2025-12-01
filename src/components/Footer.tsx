@@ -13,7 +13,7 @@ export default function Footer() {
               <span className="text-xl font-bold text-white">Nexep India</span>
             </div>
             <p className="text-gray-400 leading-relaxed">
-              Leading provider of chemical engineering solutions, delivering excellence in automation and process control.
+              Leading provider of engineering solutions, delivering excellence in automation and process control.
             </p>
           </div>
 

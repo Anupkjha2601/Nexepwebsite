@@ -37,7 +37,7 @@ export default function Hero({ onNavigate }: HeroProps) {
             <Beaker className="h-12 w-12 mb-4 text-blue-200" />
             <h3 className="text-xl font-semibold mb-2">Process Excellence</h3>
             <p className="text-blue-100">
-              Advanced solutions for chemical processing, refining, and manufacturing industries
+              Advanced solutions for Engineering processing, refining, and manufacturing industries
             </p>
           </div>
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">

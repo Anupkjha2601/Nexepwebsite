@@ -7,7 +7,7 @@ export default function About() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">About Nexep India</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Leading provider of chemical engineering solutions, committed to excellence in automation and process control
+            Leading provider of engineering solutions, committed to excellence in automation and process control
           </p>
         </div>
 
@@ -22,7 +22,7 @@ export default function About() {
           <div>
             <h3 className="text-3xl font-bold text-gray-900 mb-4">Our Company</h3>
             <p className="text-gray-600 mb-4 leading-relaxed">
-              Nexep India Pvt Ltd is a premier chemical engineering solutions provider, specializing in delivering comprehensive automation, control systems, and instrumentation solutions for process industries across India.
+              Nexep India Pvt Ltd is a premier engineering solutions provider, specializing in delivering comprehensive automation, control systems, and instrumentation solutions for process industries across India.
             </p>
             <p className="text-gray-600 mb-4 leading-relaxed">
               With years of experience and a commitment to innovation, we partner with world-class manufacturers to bring cutting-edge technology to our clients. Our expertise spans across refineries, petrochemical plants, pharmaceutical facilities, and manufacturing operations.
