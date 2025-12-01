@@ -25,7 +25,8 @@ export default function Contact() {
     // show submitted state while sending
     setSubmitted(true);
 
-    const res = await fetch('http://localhost:5000/send-email', {
+    const apiUrl = import.meta.env.VITE_API_URL;
+const res = await fetch(`${apiUrl}/send-email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),

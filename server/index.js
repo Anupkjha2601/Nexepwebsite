@@ -56,3 +56,6 @@ app.post('/send-email', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Contact server running on port ${PORT}`);
 });
+app.get('/', (req, res) => {
+  res.send("Nexep backend is running!");
+});
