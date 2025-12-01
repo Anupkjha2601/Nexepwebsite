@@ -25,8 +25,8 @@ export default function Contact() {
     // show submitted state while sending
     setSubmitted(true);
 
-    const apiUrl = import.meta.env.VITE_API_URL;
-const res = await fetch(`${apiUrl}/send-email`, {
+    
+const res = await fetch(`https://nexepwebsite.onrender.com//send-email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
