@@ -11,6 +11,8 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
 
+const API_URL = 'https://nexepwebsite.onrender.com';
+
   const handleSubmit = async (e: FormEvent) => {
   e.preventDefault();
 
@@ -24,7 +26,7 @@ export default function Contact() {
     // show submitted state while sending
     setSubmitted(true);
 
-    const res = await fetch('http://localhost:5000/send-email', {
+    const res = await fetch(`${API_URL}/send-email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
