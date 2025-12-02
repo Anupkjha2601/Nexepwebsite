@@ -11,47 +11,74 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-const apiBase = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/+$/,'');
+  const apiBase = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/+$/,'');
+
+  // helper to POST contact and handle many edge-cases
+  async function postContact(payload: typeof formData) {
+    const url = `${apiBase}/send-email`;
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      // If non-2xx: read text (might be empty) and throw nice error
+      if (!res.ok) {
+        const txt = await res.text().catch(() => '');
+        throw new Error(`Server responded with ${res.status}${txt ? `: ${txt}` : ''}`);
+      }
+
+      // Some servers return empty body on success — guard against JSON.parse error
+      const text = await res.text().catch(() => '');
+      if (!text) return { success: true };
+
+      try {
+        const json = JSON.parse(text);
+        return json;
+      } catch {
+        // response not JSON, but not an error — treat as success with raw text
+        return { success: true, raw: text };
+      }
+    } catch (err: any) {
+      // Normalize error
+      const message = err?.message || 'Network or server error';
+      console.error('postContact error:', message);
+      throw new Error(message);
+    }
+  }
 
   const handleSubmit = async (e: FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  // basic validation
-  if (!formData.name || !formData.email || !formData.message) {
-    alert('Please fill Name, Email and Message.');
-    return;
-  }
+    // basic validation
+    if (!formData.name || !formData.email || !formData.message) {
+      alert('Please fill Name, Email and Message.');
+      return;
+    }
 
-  try {
-    // show submitted state while sending
-    setSubmitted(true);
+    try {
+      setSubmitted(true);
 
-    
-const res = await fetch(`${apiBase}/send-email`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+      const result = await postContact(formData);
 
-    const data = await res.json();
-
-    if (data.success) {
-      // keep same behaviour as before
-      setTimeout(() => {
+      if (result && result.success) {
+        // keep same behaviour as before
+        setTimeout(() => {
+          setSubmitted(false);
+          setFormData({ name: '', email: '', phone: '', company: '', message: '' });
+        }, 3000);
+      } else {
+        console.error('Server responded with error:', result);
+        alert('Failed to send message. Try again later.');
         setSubmitted(false);
-        setFormData({ name: '', email: '', phone: '', company: '', message: '' });
-      }, 3000);
-    } else {
-      console.error('Server responded with error:', data);
-      alert('Failed to send message. Try again later.');
+      }
+    } catch (err: any) {
+      console.error('Network or server error', err);
+      alert(`Error sending message: ${err?.message || 'Check console for details.'}`);
       setSubmitted(false);
     }
-  } catch (err) {
-    console.error('Network or server error', err);
-    alert('Error sending message. Check console for details.');
-    setSubmitted(false);
-  }
-};
+  };
 
   return (
     <section id="contact" className="py-20 bg-white">
