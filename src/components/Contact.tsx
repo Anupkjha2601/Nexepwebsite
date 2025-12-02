@@ -11,6 +11,7 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
 
+const apiBase = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/+$/,'');
 
   const handleSubmit = async (e: FormEvent) => {
   e.preventDefault();
@@ -26,7 +27,7 @@ export default function Contact() {
     setSubmitted(true);
 
     
-const res = await fetch('http://localhost:5000/send-email', {
+const res = await fetch(`${apiBase}/send-email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
