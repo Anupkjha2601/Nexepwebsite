@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+const path = require('path'); 
 require('dotenv').config();
 
 const app = express();
@@ -12,24 +13,17 @@ const PORT = process.env.PORT || 5000;
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT) || 587,
-  secure: process.env.SMTP_SECURE === 'true', // true for 465, false for 587
+  secure: process.env.SMTP_SECURE === 'true',
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS
   }
 });
 
-// optional: quick verify
-transporter.verify().then(() => {
-  console.log('SMTP transporter ready');
-}).catch(err => {
-  console.error('SMTP transporter error', err);
-});
-
 app.post('/send-email', async (req, res) => {
+  // ... Tera same email logic ...
   try {
     const { name, email, phone, company, message } = req.body;
-
     const html = `
       <h3>New contact form submission</h3>
       <p><strong>Name:</strong> ${name || '—'}</p>
@@ -53,6 +47,12 @@ app.post('/send-email', async (req, res) => {
   }
 });
 
+app.use(express.static(path.join(__dirname, 'dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 app.listen(PORT, () => {
-  console.log(`Contact server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

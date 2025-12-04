@@ -11,7 +11,7 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const apiBase = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/+$/,'');
+  const apiBase = import.meta.env.PROD ? '' : 'http://localhost:5000';
 
   // helper to POST contact and handle many edge-cases
   async function postContact(payload: typeof formData) {
